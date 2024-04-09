@@ -1,0 +1,10 @@
+node_modules/
+.env
+
+lib/accountTypes.js
+lib/formats.js
+lib/msgTypes.js
+lib/tools.js
+lib/transactionStatus.js
+lib/transactionTypes.js
+lib/types.js
