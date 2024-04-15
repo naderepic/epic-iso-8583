@@ -5,7 +5,7 @@ const iso8583 = require('./lib/iso8583');
 const connectToIswServer = require('./lib/interSwitch.service');
 
 const key = CryptoJS.enc.Hex.parse(process.env.PIN_ENCRYPTION_KEY);
-const pin = '1234';
+const pin = '2587';
 // Perform DES encryption on plaintext
 const encrypted = CryptoJS.DES.encrypt(pin, key, { mode: CryptoJS.mode.ECB });
 
