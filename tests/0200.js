@@ -15,6 +15,7 @@ const encryptedPin = encrypted.ciphertext.toString();
 
 const stan = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
 const transmissionDateTime = moment.utc().format('MMDDhhmmss');
+const switchKey = `0200:${stan}:${transmissionDateTime}:787755594`;
 const dataElements = {
   0: '0200',
   2: '5559401234567877',
@@ -46,7 +47,7 @@ const dataElements = {
   100: '666057',
   103: '2090512395',
   123: '510101511344101',
-  127.2: `0200:${stan}:${transmissionDateTime}:787755594`,
+  127.2: switchKey,
   127.13: '      000000  566',
   '127.20': moment().format('YYYYMMDD'),
   127.22: `212ORIGINAL_RID235<ORIGINAL_RID>627629</ORIGINAL_RID>`,
@@ -75,7 +76,8 @@ if (process.env.CONNECT_ISW_SERVER === 'true') {
       stan: stan.toString(),
       transmissionDateTime: transmissionDateTime,
       acquirerInstitutionIdCode: acquirerInstitutionIdCode.padStart(11, '0'),
-      forwardingInstitutionIdCode: forwardingInstitutionIdCode.padStart(11, '0')
+      forwardingInstitutionIdCode: forwardingInstitutionIdCode.padStart(11, '0'),
+      switchKey: switchKey
     };
     reversalMessage(originalData);
   } catch (error) {
