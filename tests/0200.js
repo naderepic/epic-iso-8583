@@ -1,8 +1,8 @@
 const moment = require('moment');
 const CryptoJS = require('crypto-js');
 
-const iso8583 = require('./lib/iso8583');
-const connectToIswServer = require('./lib/interSwitch.service');
+const iso8583 = require('../lib/iso8583');
+const connectToIswServer = require('../lib/interSwitch.service');
 
 const key = CryptoJS.enc.Hex.parse(process.env.PIN_ENCRYPTION_KEY);
 const pin = '2587';
