@@ -1,14 +1,16 @@
 const moment = require('moment');
-const crypto = require('crypto');
+const CryptoJS = require('crypto-js');
 
 const iso8583 = require('./lib/iso8583');
 const connectToIswServer = require('./lib/interSwitch.service');
 
-const cipher = crypto.createCipheriv('des-ecb', Buffer.from('4d1ad5305af55d61', 'hex'), null);
+const key = CryptoJS.enc.Hex.parse(process.env.PIN_ENCRYPTION_KEY);
+const pin = '1234';
+// Perform DES encryption on plaintext
+const encrypted = CryptoJS.DES.encrypt(pin, key, { mode: CryptoJS.mode.ECB });
 
-const pin = '1234'; // Your PIN
-let encrypted = cipher.update(pin, 'utf8', 'hex');
-encrypted += cipher.final('hex');
+// Convert ciphertext as hex string
+const encryptedPin = encrypted.ciphertext.toString();
 
 const stan = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
 const transmissionDateTime = moment.utc().format('MMDDhhmmss');
@@ -38,7 +40,7 @@ const dataElements = {
   42: '2EPT00000000001',
   43: 'S&O TELECOM            AGBADO         NG',
   49: '566',
-  52: encrypted,
+  52: encryptedPin,
   98: '3FAB000100000000000000000',
   100: '666057',
   103: '2090512395',
