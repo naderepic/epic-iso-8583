@@ -11,7 +11,7 @@ const reversalMessage = (originalData) => {
     0: '0420',
     2: '5559401234567877',
     3: '000000',
-    4: '000000001000',
+    4: '000000100000',
     5: '000000011914',
     7: transmissionDateTime,
     11: stan.toString(),
