@@ -2,7 +2,6 @@ const moment = require('moment');
 const CryptoJS = require('crypto-js');
 
 const iso8583 = require('../lib/iso8583');
-const reversalMessage = require('./reversalMessage');
 const connectToIswServer = require('../lib/interSwitch.service');
 
 const key = CryptoJS.enc.Hex.parse(process.env.PIN_ENCRYPTION_KEY);
@@ -56,30 +55,13 @@ const dataElements = {
   127.41: '10.2.103.19,36065'
 };
 const isoPack = new iso8583(dataElements);
-
 const isoBufferMessage = isoPack.buildIsoMessage();
-console.log({ isoBufferMessage });
-
-const unpackedMessage = new iso8583().getIsoJSON(isoBufferMessage);
-console.log({ unpackedMessage });
 
 if (process.env.CONNECT_ISW_SERVER === 'true') {
   // Connect to the server and send message
   const iswClient = connectToIswServer();
   try {
     iswClient.write(isoBufferMessage);
-
-    const acquirerInstitutionIdCode = '12345678';
-    const forwardingInstitutionIdCode = '111111';
-    const originalData = {
-      messageType: '0200',
-      stan: stan.toString(),
-      transmissionDateTime: transmissionDateTime,
-      acquirerInstitutionIdCode: acquirerInstitutionIdCode.padStart(11, '0'),
-      forwardingInstitutionIdCode: forwardingInstitutionIdCode.padStart(11, '0'),
-      switchKey: switchKey
-    };
-    reversalMessage(originalData);
   } catch (error) {
     throw new Error(error.message);
   }

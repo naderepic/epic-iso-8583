@@ -4,7 +4,6 @@ const iso8583 = require('../lib/iso8583');
 const connectToIswServer = require('../lib/interSwitch.service');
 
 const reversalMessage = (originalData) => {
-  console.log({ originalData });
   const stan = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
   const transmissionDateTime = moment.utc().format('MMDDhhmmss');
   const dataElements = {
@@ -47,12 +46,7 @@ const reversalMessage = (originalData) => {
     '127.40': '12M0232FDC9F609EDE61CEB25790AC4BB5ACB23'
   };
   const isoPack = new iso8583(dataElements);
-
   const isoBufferMessage = isoPack.buildIsoMessage();
-  console.log({ isoBufferMessage });
-
-  const unpackedMessage = new iso8583().getIsoJSON(isoBufferMessage);
-  console.log({ unpackedMessage });
 
   if (process.env.CONNECT_ISW_SERVER === 'true') {
     // Connect to the server and send message
