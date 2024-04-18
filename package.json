@@ -1,6 +1,6 @@
 {
   "name": "@naderepic/epic-iso-8583",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Epic ISO 8583",
   "main": "lib/iso8583.js",
   "scripts": {
